@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="calculator">
+<head>
+    <title>Calculator made with AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Titillium+Web" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid calculator-widget" ng-controller="CalculatorController">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 inputs">
+                <h1>Savings Calculator</h1>
+                <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Amount of Sales Employees</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="employees" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Quotes per Month per Employee</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="quotes" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Durschnittlicher Sundnsatz</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="sundan" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Quote Check</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="quote_check" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Price Calculation</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="price" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">NDA Check</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="nda" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Time for creating offer</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="offers_create" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Average time for writing an Email</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="emails_time" ng-change ="calculate()">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-6 col-xs-12 control-label">Average time per phone call</label>
+                        <div class="col-sm-6 col-xs-12">
+                          <input type="number" ng-model="call_time" ng-change ="calculate()">
+                        </div>
+                      </div>
+                    </form> 
+                </div>
+
+                <div class="col-sm-6 col-xs-12 results">
+                    <h1>Accumulated Cost Savings</h1>
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <th></th>
+                            <th>Month 1</th>
+                            <th>Month 2</th>
+                            <th>Month 3</th>
+                            <th>Month 4</th>
+                            <th>Month 5</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Online Quoting</th>
+                                <td class="online-quoting"> 
+                                    <span class="amount">{{online_quoting_month1}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="online-quoting-2">
+                                    <span class="amount">{{online_quoting_month1*2}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="online-quoting-3">
+                                    <span class="amount">{{online_quoting_month1*3}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="online-quoting-4">
+                                    <span class="amount">{{online_quoting_month1*4}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="online-quoting-5">
+                                    <span class="amount">{{online_quoting_month1*12}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                            </tr>   
+                            <tr>
+                                <th scope="row">Digital Production</th>
+                                <td class="digital-production">
+                                    <span class="amount">{{digital_production_month1}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="digital-production-2">
+                                    <span class="amount">{{digital_production_month1*2}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="digital-production-3">
+                                    <span class="amount">{{digital_production_month1*3}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="digital-production-4">
+                                    <span class="amount">{{digital_production_month1*4}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                                <td class="digital-production-5">
+                                    <span class="amount">{{digital_production_month1*12}}</span>
+                                    <span class="unit">€</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
